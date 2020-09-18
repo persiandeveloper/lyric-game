@@ -1,0 +1,51 @@
+<div class="card-content white-text text-center">
+    <span class="card-title rtl">
+        ترانه ی {{qnProgress+1}} -  
+        <ng-container *ngIf="qns[qnProgress].MusicName">
+            <span class="rtl">{{qns[qnProgress].MusicName}}</span>
+            <br *ngIf="!qns[qnProgress].Poet"/>
+        </ng-container>
+        <ng-container *ngIf="qns[qnProgress].Poet">
+            <br *ngIf="qns[qnProgress].MusicName"/>
+            <span class="rtl">ترانه سرا: {{qns[qnProgress].Poet}}</span>
+            <br/>
+        </ng-container>
+        <ng-container *ngIf="qns[qnProgress].Singer">  خواننده : {{qns[qnProgress].Singer}}</ng-container>
+        <ng-container *ngIf="!qns[qnProgress].Singer"> <b>ترانه ی زیر را چه کسی خوانده ؟</b></ng-container>
+
+
+       
+    </span>
+    <p [@simpleFadeAnimation]="qnProgress" [innerHTML]="qns[qnProgress].Qn | replaceQuestionHolder" class="p-2 rtl"></p>
+</div>
+
+<div class="d-none d-md-block col-md-10 offset-md-2">
+    <ng-container *ngFor="let option of qns[qnProgress].Options;let i = index">
+        <button *ngIf="option != null && !showNextQuetionButton" class="m-1 col-md-5 text-center btn btn-warning"
+            (click)="Answer(i)">
+            {{option.Option}}
+        </button>
+        <span *ngIf="showNextQuetionButton" [ngClass]="{'btn-success': option.ChangeColor , 
+                  'btn-danger' : option.FailColor , 'btn-outline-dark': !option.ChangeColor && !option.FailColor}"
+            class="m-1 col-md-5 text-center btn"> {{option.Option}}</span>
+    </ng-container>
+</div>
+
+<div class="d-md-none">
+    <ng-container *ngFor="let option of qns[qnProgress].Options;let i = index">
+
+        <button *ngIf="option != null && !showNextQuetionButton" class="mb-2 col-md-12 text-center btn btn-warning"
+            (click)="Answer(i)">
+            {{option.Option}}
+        </button>
+        <span *ngIf="showNextQuetionButton" [ngClass]="{'btn-success': option.ChangeColor , 
+            'btn-danger' : option.FailColor ,
+            'btn-outline-dark': !option.ChangeColor && !option.FailColor
+            }" class="mb-2 col-md-12 text-center btn"> {{option.Option}}</span>
+    </ng-container>
+</div>
+<div *ngIf="showNextQuetionButton" class="m-3 d-flex justify-content-center">
+   
+    <a class="degreeSize fas fa-arrow-circle-left text-primary" (click)="showNextQuestion()"></a>
+
+</div>

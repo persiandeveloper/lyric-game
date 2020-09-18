@@ -1,0 +1,68 @@
+<div class="row" *ngIf="!started" id="headerPart">
+  <div class="card col-md-6 offset-md-3 text-center">
+    <div class="card-header">
+      <h4 class="rtl">به بازی ترانه شناسی خوش اومدی !</h4>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <p class="rtl">
+          <ng-container *ngIf="fullName"><b>{{fullName}}</b> |</ng-container>
+
+          آخرین امتیاز تو : <b>{{highScore}}</b>
+
+        </p>
+        <p>
+          <ng-container *ngIf="bestScore">
+            <span class="rtl">
+             بالاترین امتیاز در یک هفته ی اخیر <b>{{bestScore}}</b>
+              <i class="degreeSize fas fa-temperature-high text-danger"></i>
+            </span>
+          </ng-container>
+        </p>
+      </li>
+      <li class="list-group-item"> <button id="startGameBtn" class="btn btn-success rtl" [disabled]="!enableStart" (click)="start()">شروع
+          بازی !</button></li>
+      <li class="list-group-item">
+        <p class="rtl"><b>قواعد بازی</b></p>
+        <ul class="rtl">
+          <li>با سه جواب نادرست بازی تموم میشه</li>
+          <li>برای رفتن به مرحله ی بعد، مجموع جواب های نادرست باید کمتر از 2 تا باشه</li>
+        </ul>
+      </li>
+      <!--<li class="list-group-item">
+        <p class="rtl">ده تا ترانه ی اول رو خواننده های زیر خوندن : </p>
+        <ul class="rtl">
+          <li *ngFor="let singer of showsingers">
+              {{singer}}
+          </li>
+        </ul>
+      </li>!-->
+    </ul>
+  </div>
+</div>
+
+<div class="row" *ngIf="started && !finsihed && questions && progress != 10">
+  <div class="col-sm-12 col-md-6 offset-md-3">
+    <div class="text-center rtl">زمان باقی مانده این سوال : {{subscribeTimer}} ثانیه</div>
+    <div class="progress" style="direction:rtl">
+      <div class="progress-bar" [style.width.%]="((progress+1)/activeQuestions)*100"></div>
+    </div>
+    <div class="card p-2">
+      <app-quiz-elements [qns]="questions" [qnProgress]="progress"
+        [showNextQuetionButton]="showNextQuetionButton" (answerEvent)="Answer($event)"
+        (showNextQuestionEvent)="showNextQuestion()"></app-quiz-elements>
+    </div>
+  </div>
+</div>
+
+
+
+<app-result
+  [correctAnswers]="correctAnswers"
+  [failedAnswers]="failedAnswers"
+  [finished]="finsihed"
+  (restartEvent)="restartGame()"
+  [highScore]="correctAnswers"
+  [nextLevel]="nextLevel"
+  [distanceToBestScore]="distanceToBestScore" (startAnotherRoundEvent)="startAnotherRound()"
+></app-result>

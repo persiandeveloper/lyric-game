@@ -1,0 +1,65 @@
+<div *ngIf="finished" class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card p-3">
+      <div class="row">
+        <div class="col-6">
+          <img class="img-fluid" src="https://babakgames.com/angular/dist/assets/musicworkshop-image.jpg">
+        </div>
+        <div class="col-6">
+          <div class="d-none d-md-block">
+            <button type="button" class="btn m-1 btn-success rtl">
+              جواب درست <span class="badge badge-light"> {{correctAnswers}}</span>
+
+            </button>
+            <button type="button" class="btn m-1 btn-danger rtl">
+              جواب نادرست <span class="badge badge-light"> {{failedAnswers}}</span>
+            </button>
+            <ng-container *ngIf="distanceToBestScore>0 && !scoredAll">
+              <div class="p-3 text-center">
+                <span>فاصله با بالاترین امتیاز : <b>{{distanceToBestScore}}</b></span>
+              </div>
+            </ng-container>
+          </div>
+          <div class="d-md-none">
+            <diV class="d-flex justify-content-center">
+              <button type="button" class="btn m-1 btn-success rtl">
+                جواب درست <span class="badge badge-light"> {{correctAnswers}}</span>
+              </button>
+              <button type="button" class="btn m-1 btn-danger rtl">
+                جواب نادرست <span class="badge badge-light"> {{failedAnswers}}</span>
+              </button>
+            </diV>
+
+            <ng-container *ngIf="distanceToBestScore>0 && !scoredAll">
+              <div class="p-3 text-center">
+                <span>فاصله با بالاترین امتیاز : <b>{{distanceToBestScore}}</b></span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="scored && !scoredAll" class="col-12">
+          <h4 *ngIf="highScore>0" class="text-center"> رکورد قبلیت رو شکستی! قر ریز</h4>
+        </div>
+        <div *ngIf="canRestart" class="col-12 d-flex justify-content-center">
+          <h3 class="rtl"><a (click)="restart()" class="text-primary fas fa-redo"></a></h3>
+        </div>
+        <div class="col-12 m-2" *ngIf="nextLevel">
+          <div class="col-md-6 offset-md-3 text-center rtl">
+            <button class="btn btn-warning" (click)="startAnotherRound()">
+              بریم مرحله ی بعد !
+              <i class="fas fa-arrow-circle-left"></i>
+            </button>
+            <div class="clearfix"></div>
+
+            <ng-container *ngIf="scoredAll">
+              <div class="p-3">
+                <h4 class="text-center rtl">رکورد همه رو زدی !</h4>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

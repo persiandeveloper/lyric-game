@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "BYekan";
+    src: url("https://babakgames.com/angular/font/Yekan.woff");
+  }
+  
+ * {
+    font-family:'BYekan',Sans-Serif;
+ } 
